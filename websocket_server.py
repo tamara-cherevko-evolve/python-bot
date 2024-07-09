@@ -3,9 +3,13 @@ import json
 import websockets
 from constants import *
 from binance.client import Client
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 from orders import start_listening_orders 
-client = Client(api_key, api_secret) 
+client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
 
 async def notify_client_of_filled_orders(websocket):
     while True:

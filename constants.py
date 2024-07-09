@@ -1,5 +1,3 @@
-api_key = 'hz2PyMdQWfmBORZiRC0Gmwyh2dL4lT8MbG5q1yafz5HaTK225icbqDOVtWJzZT47'
-api_secret = 'grARhksfpQ8aZV626xNOw6BwWEBabxFh3jzZpBbjvdu7mXk0v0PjQ7DpQ10wld9u'
 current_symbol = 'BTCUSDT' 
 
 file_orders_in_progress = 'client/src/assets/files/orders_in_progress.json'
