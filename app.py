@@ -17,7 +17,7 @@ from orders import recalculate_sell_order, start_listening_orders
 app = Flask(__name__) 
 CORS(app)
  
-# client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
+client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
 
  
 @app.route('/')
