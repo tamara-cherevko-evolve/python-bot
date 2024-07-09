@@ -24,23 +24,23 @@ client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 def index():
     return jsonify({"status": "index"}), 200
 
-# @app.route('/start-dca-grid', methods=['POST'])
-# def start_dca_grid():  
-#     start_DCA_grid(client) 
-#     sleep(1)
-#     return jsonify({"status": "DCA grid started"}), 200
+@app.route('/start-dca-grid', methods=['POST'])
+def start_dca_grid():  
+    start_DCA_grid(client) 
+    sleep(1)
+    return jsonify({"status": "DCA grid started"}), 200
 
-# @app.route('/start-listen-orders', methods=['GET'])
-# def start_listen():  
-#     start_listening_orders(client)
-#     return jsonify({"status": "Listening orders started"}), 200 
+@app.route('/start-listen-orders', methods=['GET'])
+def start_listen():  
+    start_listening_orders(client)
+    return jsonify({"status": "Listening orders started"}), 200 
 
 
-# @app.route('/recalculate-sell-order', methods=['POST'])
-# def recalculate_order():  
-#     recalculate_sell_order(client) 
-#     sleep(1)
-#     return jsonify({"status": "Order recalculated"}), 200
+@app.route('/recalculate-sell-order', methods=['POST'])
+def recalculate_order():  
+    recalculate_sell_order(client) 
+    sleep(1)
+    return jsonify({"status": "Order recalculated"}), 200
 
 
 if __name__ == '__main__':

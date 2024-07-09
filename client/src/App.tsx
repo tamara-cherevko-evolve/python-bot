@@ -29,7 +29,7 @@ function App() {
   const startHandler = async () => {
     setIsLoading(true);
     try {
-      await axios.post("http://localhost:8000/start-dca-grid", {
+      await axios.post("https://python-bot-ct2n.onrender.com/start-dca-grid", {
         method: "POST",
       });
       setIsLoading(false);
@@ -42,7 +42,7 @@ function App() {
   const recalculateSellOrderHandler = async () => {
     setIsRecalculatingSellOrder(true);
     try {
-      await axios.post("http://localhost:8000/recalculate-sell-order", {
+      await axios.post("https://python-bot-ct2n.onrender.com/recalculate-sell-order", {
         method: "POST",
       });
       setIsRecalculatingSellOrder(false);
