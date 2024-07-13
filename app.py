@@ -29,10 +29,11 @@ def index():
 @app.route('/start-dca-grid', methods=['POST'])
 def start_dca_grid():  
     print(f"API_KEY: {os.getenv('API_KEY')}")
-    print(f"API_SECRET: {os.getenv('API_SECRET')}")
+    print(f"API_SECRET: {os.getenv('API_SECRET')}") 
+    price_info = client.get_symbol_ticker(symbol=current_symbol)
+    print(f"Current price: {price_info['price']}")
     # data = start_DCA_grid(client) 
-    sleep(1)
-    return jsonify(data), 200
+    return jsonify({"status": f"Current price: {price_info['price']}"}), 200
 
 @app.route('/start-listen-orders', methods=['GET'])
 def start_listen():  
