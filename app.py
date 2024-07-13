@@ -21,8 +21,6 @@ CORS(app)
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
-print(f"API_KEY: {os.getenv('API_KEY')}")
-print(f"API_SECRET: {os.getenv('API_SECRET')}")
  
 @app.route('/')
 def index():
@@ -30,7 +28,9 @@ def index():
 
 @app.route('/start-dca-grid', methods=['POST'])
 def start_dca_grid():  
-    data = start_DCA_grid(client) 
+    print(f"API_KEY: {os.getenv('API_KEY')}")
+    print(f"API_SECRET: {os.getenv('API_SECRET')}")
+    # data = start_DCA_grid(client) 
     sleep(1)
     return jsonify(data), 200
 
