@@ -6,6 +6,7 @@ from flask_cors import CORS
 from waitress import serve
 from constants import *
 from create_order import start_DCA_grid
+from flask_sqlalchemy import SQLAlchemy
 import requests
 from dotenv import load_dotenv
 import os
@@ -16,7 +17,9 @@ from orders import recalculate_sell_order, start_listening_orders
 
 app = Flask(__name__) 
 CORS(app)
- 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
 
  
