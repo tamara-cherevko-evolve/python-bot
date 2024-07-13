@@ -17,9 +17,9 @@ from orders import recalculate_sell_order, start_listening_orders
 
 app = Flask(__name__) 
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# db = SQLAlchemy(app)
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
 
  
@@ -29,9 +29,9 @@ def index():
 
 @app.route('/start-dca-grid', methods=['POST'])
 def start_dca_grid():  
-    start_DCA_grid(client) 
+    data = start_DCA_grid(client) 
     sleep(1)
-    return jsonify({"status": "DCA grid started"}), 200
+    return jsonify(data), 200
 
 @app.route('/start-listen-orders', methods=['GET'])
 def start_listen():  

@@ -44,7 +44,7 @@ def start_DCA_grid(client):
         }
         print(f"Take Profit Order: {tp_price}") 
         write_orders_to_listen(file_listening_orders, data_to_write)  
-      
+        return data_to_write
 
     except BinanceAPIException as error:
         print(
