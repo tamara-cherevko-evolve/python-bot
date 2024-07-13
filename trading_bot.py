@@ -10,9 +10,17 @@ from constants import *
 from create_order import start_DCA_grid
 from file_utils import get_completed_orders_from_file, get_orders_to_listen_from_file, update_sell_id_in_json, write_orders_to_listen
 from orders import delete_all_orders, start_listening_orders
+from dotenv import load_dotenv
+import os
 
-client = Client(api_key, api_secret)  
-
+load_dotenv()
+client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
+print(f"API_KEY: {os.getenv('API_KEY')}")
+print(f"API_SECRET: {os.getenv('API_SECRET')}")
+price_info = client.get_symbol_ticker(symbol=current_symbol)
+print(f"Current price: {price_info['price']}")
+account_details = client.get_account()
+print(f"Account details: {account_details}")
 # start_DCA_grid(client)
 
 # delete_all_orders(client)  
@@ -31,4 +39,5 @@ client = Client(api_key, api_secret)
 # start_listening_orders(client)
 
   # Calculate the average price
+
 

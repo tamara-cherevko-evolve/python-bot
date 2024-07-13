@@ -21,7 +21,8 @@ CORS(app)
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
-
+print(f"API_KEY: {os.getenv('API_KEY')}")
+print(f"API_SECRET: {os.getenv('API_SECRET')}")
  
 @app.route('/')
 def index():

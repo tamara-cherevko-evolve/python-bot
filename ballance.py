@@ -21,7 +21,7 @@ def get_balance_usdt(client):
         )
 
 def check_balance_for_orders(client, price):
-    balance = get_balance_usdt(client) 
+    balance = get_balance_usdt(client)  
 
     # Calculate the total cost for orders without placing them
     total_cost = price * buy_qty * risk_buy_more_times  

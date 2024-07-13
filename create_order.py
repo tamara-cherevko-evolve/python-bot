@@ -17,7 +17,8 @@ def start_DCA_grid(client):
     # Check if the balance is sufficient for the orders
     if_ballance_enough = check_balance_for_orders(client, price)
     if not if_ballance_enough:
-        return  
+        error_message = {"error": "Insufficient balance"}
+        return error_message 
 
     try:
         # Buy first share
