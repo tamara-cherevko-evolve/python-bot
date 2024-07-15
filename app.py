@@ -30,9 +30,12 @@ def index():
 def start_dca_grid():  
     print(f"API_KEY: {os.getenv('API_KEY')}")
     print(f"API_SECRET: {os.getenv('API_SECRET')}") 
-    account_details = client.get_account()
-    # data = start_DCA_grid(client) 
-    return jsonify({"status": account_details}), 200
+    try:
+        account_details = client.get_account()
+        # data = start_DCA_grid(client) 
+        return jsonify({"status": account_details}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
 
 @app.route('/start-listen-orders', methods=['GET'])
 def start_listen():  
