@@ -26,7 +26,7 @@ client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 def index():
     return jsonify({"status": "index"}), 200
 
-@app.route('/start-dca-grid', methods=['POST'])
+@app.route('/start-dca-grid', methods=['GET'])
 def start_dca_grid():  
     print(f"API_KEY: {os.getenv('API_KEY')}")
     print(f"API_SECRET: {os.getenv('API_SECRET')}") 
@@ -49,3 +49,4 @@ def recalculate_order():
 
 if __name__ == '__main__':
     serve(app, host='0.0.0.0', port=8000) 
+
