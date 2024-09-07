@@ -8,6 +8,10 @@ from constants import *
 from file_utils import add_data_to_json_file, write_order_details, clean_file, write_orders_to_listen
 # from orders import delete_all_orders, start_listening_orders   
 
+def get_price_btcusd(client):
+    price_info = client.get_symbol_ticker(symbol=current_symbol)
+    return float(price_info['price'])
+
 # Open new order with the last price, and set TP and SL:
 def start_DCA_grid(client):  
     price_info = client.get_symbol_ticker(symbol=current_symbol)

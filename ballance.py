@@ -20,15 +20,18 @@ def get_balance_usdt(client):
             )
         )
 
-def check_balance_for_orders(client, price):
-    balance = get_balance_usdt(client)  
-
+def get_minimum_balance(price):  
     # Calculate the total cost for orders without placing them
     total_cost = price * buy_qty * risk_buy_more_times  
+    return total_cost 
+    
+def check_balance_for_orders(client, price):
+    balance = get_balance_usdt(client)   
+    minimum_balance = get_minimum_balance(price)
         
-    if balance >= total_cost:
-        print(f"Sufficient balance. Total cost for 20 orders: {total_cost}, Available balance: {balance}")
+    if balance >= minimum_balance:
+        print(f"Sufficient balance. Total cost for 20 orders: {minimum_balance}, Available balance: {balance}")
         return True
     else:
-        print(f"Insufficient balance. Total cost for 20 orders: {total_cost}, Available balance: {balance}")  
+        print(f"Insufficient balance. Total cost for 20 orders: {minimum_balance}, Available balance: {balance}")  
         return False

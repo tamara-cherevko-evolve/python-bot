@@ -5,8 +5,8 @@ from flask import Flask, jsonify
 from flask_cors import CORS 
 from waitress import serve
 from constants import *
-from create_order import start_DCA_grid
-from ballance import get_balance_usdt
+from create_order import get_price_btcusd
+from ballance import get_balance_usdt, get_minimum_balance, check_balance_for_orders
 import requests
 from dotenv import load_dotenv
 import os
@@ -22,6 +22,17 @@ client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 @app.route('/')
 def index():
     return jsonify({"status": "index"}), 200
+
+@app.route('/get-balance', methods=['GET'])
+def get_balance():   
+    try: 
+        balance = get_balance_usdt(client)  
+        price = get_price_btcusd(client)
+        minimum_balance = get_minimum_balance(price)
+        is_ballance_enough = check_balance_for_orders(client, price) 
+        return jsonify({"balance": balance, "minimum_balance": minimum_balance, "is_ballance_enough": is_ballance_enough}), 200 
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
 
 @app.route('/start-dca-grid', methods=['GET'])
 def start_dca_grid():   
