@@ -12,7 +12,12 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
- 
+api_key = os.getenv('API_KEY')
+api_secret = os.getenv('API_SECRET')
+
+print(f"API Key: {api_key}")
+print(f"API Secret: {api_secret}")
+
 from orders import recalculate_sell_order, start_listening_orders 
 
 app = Flask(__name__) 
