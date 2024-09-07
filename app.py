@@ -11,20 +11,12 @@ import requests
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-api_key = os.getenv('API_KEY')
-api_secret = os.getenv('API_SECRET')
-
-print(f"API Key: {api_key}")
-print(f"API Secret: {api_secret}")
+load_dotenv() 
 
 from orders import recalculate_sell_order, start_listening_orders 
 
 app = Flask(__name__) 
-CORS(app)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/dbname'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
+CORS(app) 
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
  
 @app.route('/')
@@ -32,13 +24,10 @@ def index():
     return jsonify({"status": "index"}), 200
 
 @app.route('/start-dca-grid', methods=['GET'])
-def start_dca_grid():  
-    print(f"API_KEY: {os.getenv('API_KEY')}")
-    print(f"API_SECRET: {os.getenv('API_SECRET')}") 
-    try:
-        account_details = client.get_account()
-        # data = start_DCA_grid(client) 
-        return jsonify({"status": account_details}), 200
+def start_dca_grid():   
+    try: 
+        data = start_DCA_grid(client) 
+        return jsonify({"status": data}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
