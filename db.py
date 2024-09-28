@@ -49,6 +49,7 @@ def get_earn_data(coin: Coin):
 
 def get_earn_data_from_db(table_name):
     connection = None
+    print(db_config)
     try:
         connection = mysql.connector.connect(**db_config)
         if connection and connection.is_connected(): 
