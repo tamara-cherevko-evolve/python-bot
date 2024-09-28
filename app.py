@@ -29,7 +29,7 @@ def index():
 def get_earn_data_for_btc():
     try:
         data = get_BTC_earn_data()
-        return jsonify({"status": "success", "data": data}), 200
+        return jsonify(data), 200
     except Error as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
