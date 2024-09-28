@@ -1,3 +1,4 @@
+from enum import Enum
 import json
 import mysql.connector
 from mysql.connector import Error
@@ -44,7 +45,7 @@ def get_SOL_earn_data():
     return get_earn_data(Coin.SOL)
 
 def get_earn_data(coin: Coin):
-    return get_earn_data_from_db(f"BTC_Earn_{coin}")
+    return get_earn_data_from_db(f"{coin.value}_Earn")
 
 def get_earn_data_from_db(table_name):
     try:
@@ -84,4 +85,4 @@ def get_earn_data_from_db(table_name):
             connection.close()
 
 if __name__ == "__main__":
-    test()
+    get_BTC_earn_data()
