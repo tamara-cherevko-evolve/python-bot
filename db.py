@@ -79,7 +79,7 @@ def get_earn_data_from_db(table_name):
             # Close the cursor
             cursor.close() 
             # Return the data as JSON
-            return json.dumps(items)
+            return items
     except Error as e:
         print(f"Error: {e}")
     finally:
