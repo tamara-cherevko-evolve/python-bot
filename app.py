@@ -15,6 +15,7 @@ import os
 
 load_dotenv() 
  
+from db import get_BTC_earn_data
 from orders import recalculate_sell_order, start_listening_orders 
 
 app = Flask(__name__) 
@@ -26,7 +27,7 @@ def index():
     return jsonify({"status": "index"}), 200
 
 @app.route('/get-earn-data/btc', methods=['GET'])
-def get_BTC_earn_data():
+def get_earn_data_for_btc():
     try:
         data = get_BTC_earn_data()
         return jsonify({"status": "success", "data": data}), 200
