@@ -51,7 +51,7 @@ def get_earn_data_from_db(table_name):
     connection = None
     try:
         connection = mysql.connector.connect(**db_config)
-        if connection.is_connected(): 
+        if connection and connection.is_connected(): 
             cursor = connection.cursor()
             
             # Execute a query to fetch data from BTC_Earn table
