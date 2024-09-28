@@ -1,6 +1,8 @@
 
 from time import sleep
 from binance.client import Client
+import mysql.connector
+from mysql.connector import Error
 from flask import Flask, jsonify 
 from flask_cors import CORS 
 from waitress import serve
@@ -12,7 +14,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv() 
-
+ 
 from orders import recalculate_sell_order, start_listening_orders 
 
 app = Flask(__name__) 
@@ -22,6 +24,14 @@ client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 @app.route('/')
 def index():
     return jsonify({"status": "index"}), 200
+
+@app.route('/get-earn-data/btc', methods=['GET'])
+def get_BTC_earn_data():
+    try:
+        data = get_BTC_earn_data()
+        return jsonify({"status": "success", "data": data}), 200
+    except Error as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/get-balance', methods=['GET'])
 def get_balance():   
