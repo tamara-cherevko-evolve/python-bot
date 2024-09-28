@@ -73,7 +73,7 @@ def get_earn_data_from_db(table_name):
                     if isinstance(value, (date, datetime)):
                         item[key] = value.isoformat()
                     elif isinstance(value, Decimal):
-                        item[key] = str(value)
+                        item[key] = f"{value:.8f}"
                 items.append(item)
  
             # Sort items by date in descending order
