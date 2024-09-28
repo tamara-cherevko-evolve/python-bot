@@ -1,7 +1,6 @@
 
 from time import sleep
-from binance.client import Client
-import mysql.connector
+from binance.client import Client 
 from mysql.connector import Error
 from flask import Flask, jsonify 
 from flask_cors import CORS 
