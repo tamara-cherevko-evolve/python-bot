@@ -82,7 +82,7 @@ def get_earn_data_from_db(table_name):
     except Error as e:
         print(f"Error: {e}")
     finally:
-        if connection.is_connected():
+        if connection and connection.is_connected():
             connection.close()
 
 if __name__ == "__main__":
