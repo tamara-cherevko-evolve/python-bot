@@ -76,6 +76,9 @@ def get_earn_data_from_db(table_name):
                         item[key] = str(value)
                 items.append(item)
  
+            # Sort items by date in descending order
+            items = sorted(items, key=lambda x: x['date'], reverse=True)
+
             # Close the cursor
             cursor.close() 
             # Return the data as JSON
