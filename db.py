@@ -1,10 +1,8 @@
-from enum import Enum
-import json
+ 
 import mysql.connector
 from mysql.connector import Error
-
-from binance.exceptions import BinanceAPIException, BinanceOrderException
-from constants import *
+ 
+from constants import Coin
 from dotenv import load_dotenv
 import os
 from datetime import date, datetime
@@ -20,29 +18,7 @@ db_config = {
     'database': os.getenv('DB_DATABASE'),
     'user': os.getenv('DB_USERNAME'),
     'password': os.getenv('DB_PASSWORD')
-}
-
-class Coin(Enum):
-    BTC = 'BTC'
-    ADA = 'ADA'
-    ETH = 'ETH'
-    PEPE = 'PEPE'
-    SOL = 'SOL'
-
-def get_BTC_earn_data():
-    return get_earn_data(Coin.BTC)
-
-def get_ADA_earn_data():
-    return get_earn_data(Coin.ADA)
-
-def get_ETH_earn_data():
-    return get_earn_data(Coin.ETH)
-
-def get_PEPE_earn_data():
-    return get_earn_data(Coin.PEPE)
-
-def get_SOL_earn_data():
-    return get_earn_data(Coin.SOL)
+} 
 
 def get_earn_data(coin: Coin):
     return get_earn_data_from_db(f"{coin.value}_Earn")
@@ -90,4 +66,4 @@ def get_earn_data_from_db(table_name):
             connection.close()
 
 if __name__ == "__main__":
-    get_BTC_earn_data()
+    get_earn_data(Coin.BTC)

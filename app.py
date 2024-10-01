@@ -5,7 +5,7 @@ from mysql.connector import Error
 from flask import Flask, jsonify 
 from flask_cors import CORS 
 from waitress import serve
-from constants import *
+from constants import coins_titles, Coin
 from create_order import get_price_btcusd
 from ballance import get_balance_usdt, get_minimum_balance, check_balance_for_orders
 import requests
@@ -14,7 +14,7 @@ import os
 
 load_dotenv() 
  
-from db import get_BTC_earn_data
+from db import get_earn_data
 from orders import recalculate_sell_order, start_listening_orders 
 
 app = Flask(__name__) 
@@ -25,10 +25,15 @@ client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET"))
 def index():
     return jsonify({"status": "index"}), 200
 
-@app.route('/get-earn-data/btc', methods=['GET'])
-def get_earn_data_for_btc():
+@app.route('/get-coins', methods=['GET'])
+def get_coins():
+    coins_list = [{"coin": coin.value, "title": coins_titles[coin]} for coin in Coin] 
+    return jsonify(coins_list), 200
+
+@app.route('/get-earn-data/<coin>', methods=['GET'])
+def get_earn_data_for_btc(coin):
     try:
-        data = get_BTC_earn_data()
+        data = get_earn_data(coin)
         return jsonify(data), 200
     except Error as e:
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -67,5 +72,5 @@ def recalculate_order():
 
 
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port=8000) 
+    serve(app, host='0.0.0.0', port=8000)  
 

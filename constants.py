@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 current_symbol = 'BTCUSDT' 
 
 file_orders_in_progress = 'client/src/assets/files/orders_in_progress.json'
@@ -12,3 +15,18 @@ multiplier = 1
 risk_rate = 0.1 # 10% price down risk
 risk_buy_more_times = int(risk_rate / sl)
 # how many times to buy more fot avg price = 0.5% * 20 = 10%
+
+class Coin(Enum):
+    BTC = 'BTC'
+    ADA = 'ADA'
+    ETH = 'ETH'
+    PEPE = 'PEPE'
+    SOL = 'SOL'
+
+coins_titles = {
+    Coin.BTC: 'BTC - Bitcoin',
+    Coin.ADA: 'ADA - Cardano',
+    Coin.ETH: 'ETH - Ethereum',
+    Coin.PEPE: 'PEPE',
+    Coin.SOL: 'SOL - Solana'
+}
