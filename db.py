@@ -20,12 +20,11 @@ db_config = {
     'password': os.getenv('DB_PASSWORD')
 } 
 
-def get_earn_data(coin: Coin):
-    return get_earn_data_from_db(f"{coin.value}_Earn")
+def get_earn_data(coin):
+    return get_earn_data_from_db(f"{coin}_Earn")
 
 def get_earn_data_from_db(table_name):
     connection = None
-    print(db_config)
     try:
         connection = mysql.connector.connect(**db_config)
         if connection and connection.is_connected(): 
@@ -55,7 +54,7 @@ def get_earn_data_from_db(table_name):
             # Sort items by date in descending order
             items = sorted(items, key=lambda x: x['date'], reverse=True)
 
-            # Close the cursor
+            # Close the cursor 
             cursor.close() 
             # Return the data as JSON
             return items
@@ -66,4 +65,4 @@ def get_earn_data_from_db(table_name):
             connection.close()
 
 if __name__ == "__main__":
-    get_earn_data(Coin.BTC)
+    get_earn_data(Coin.BTC.value)
