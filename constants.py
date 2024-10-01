@@ -17,11 +17,11 @@ risk_buy_more_times = int(risk_rate / sl)
 # how many times to buy more fot avg price = 0.5% * 20 = 10%
 
 class Coin(Enum):
-    BTC = 'BTC'
-    ADA = 'ADA'
-    ETH = 'ETH'
-    PEPE = 'PEPE'
-    SOL = 'SOL'
+    BTC = 'btc'
+    ADA = 'ada'
+    ETH = 'eth'
+    PEPE = 'pepe'
+    SOL = 'soe'
 
 coins_titles = {
     Coin.BTC: 'BTC - Bitcoin',
