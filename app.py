@@ -82,6 +82,9 @@ def buy_coin():
         balance_data = check_balance_for_earn_investment(client)  
         if not balance_data['is_balance_enough']:
             return jsonify({"status": "error", "message": balance_data["message"]}), 500
+        else :
+            amount = buy_coin(client, coin)
+            return jsonify({"status": "success", "message": f"Bought {amount} of {coin}"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
