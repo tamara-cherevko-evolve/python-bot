@@ -70,14 +70,12 @@ def get_earn_balance():
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
     
-@app.route('/buy_coin', methods=['GET'])
-def buy_coin():   
+@app.route('/buy_coin/<coin>', methods=['GET'])
+def buy_coin(coin):   
     try: 
         is_balance_enough = check_balance_for_orders(client)  
         if not is_balance_enough:
-            return jsonify({"status": "error", "message": "Balance not enough"}), 500
-        data = request.get_json()
-        coin = data.get('coin')
+            return jsonify({"status": "error", "message": "Balance not enough"}), 500 
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
