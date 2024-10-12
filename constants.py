@@ -1,7 +1,7 @@
 from enum import Enum
 
 #Earn
-minimum_earn_balance = 5
+minimum_earn_balance = 5.5
 
 #Trading
 current_symbol = 'BTCUSDT' 
