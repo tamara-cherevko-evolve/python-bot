@@ -41,9 +41,9 @@ def buy_coin(client, coin):
             total = float(order['cummulativeQuoteQty'])  
             insert_coin_purchase(coin, transact_time, qty, price, total, commission)
             
-            return {"status": "success", "message": f"Bought {amount} of {coin}"}
+            return order
         else:
-            return {"status": "error", "message": "Order creation failed"} 
+            raise Exception("Order creation failed")
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
