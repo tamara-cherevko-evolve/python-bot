@@ -1,6 +1,9 @@
 from enum import Enum
 
+#Earn
+minimum_earn_balance = 5
 
+#Trading
 current_symbol = 'BTCUSDT' 
 
 file_orders_in_progress = 'client/src/assets/files/orders_in_progress.json'

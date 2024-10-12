@@ -5,14 +5,14 @@ from mysql.connector import Error
 from flask import Flask, jsonify 
 from flask_cors import CORS 
 from waitress import serve
-from constants import coins_titles, Coin
+from constants import coins_titles, Coin, minimum_earn_balance
 from create_order import get_price_btcusd
 from ballance import get_balance_usdt, get_minimum_balance, check_balance_for_orders
 import requests
 from dotenv import load_dotenv
 import os
 
-from earn import select_coin_for_suggestion
+from earn import select_coin_for_suggestion, check_balance_for_orders
 
 load_dotenv() 
  
@@ -63,11 +63,19 @@ def get_balance():
 @app.route('/get-earn-balance-with-suggestion', methods=['GET'])
 def get_earn_balance():   
     try: 
-        balance = get_balance_usdt(client)   
-        minimum_balance = 5
-        is_ballance_enough = balance >= minimum_balance
+        balance = get_balance_usdt(client)  
+        is_ballance_enough = balance >= minimum_earn_balance
         suggested_coin = select_coin_for_suggestion()
-        return jsonify({"balance": balance, "minimum_balance": minimum_balance, "is_ballance_enough": is_ballance_enough, "suggested_coin": suggested_coin}), 200 
+        return jsonify({"balance": balance, "minimum_balance": minimum_earn_balance, "is_ballance_enough": is_ballance_enough, "suggested_coin": suggested_coin}), 200 
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
+    
+@app.route('/buy_coin', methods=['POST'])
+def buy_coin():   
+    try: 
+        is_balance_enough = check_balance_for_orders(client)  
+        if not is_balance_enough:
+            return jsonify({"status": "error", "message": "Balance not enough"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
