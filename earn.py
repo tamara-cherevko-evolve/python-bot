@@ -21,7 +21,7 @@ def buy_coin(client, coin):
     price = float(price_info['price'])
         
     # Calculate the amount of the coin that can be bought
-    amount = Decimal(minimum_earn_balance) / Decimal(price)
+    amount = round(Decimal(minimum_earn_balance) / Decimal(price), 2)
     print(f"Amount of {coin} that can be bought for ${minimum_earn_balance}: {amount:.8f}")
     return amount
     # order = client.create_order(
