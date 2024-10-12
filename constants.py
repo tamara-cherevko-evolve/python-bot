@@ -30,3 +30,11 @@ coins_titles = {
     Coin.PEPE: 'PEPE',
     Coin.SOL: 'SOL - Solana'
 }
+
+coins_priority = {
+    Coin.BTC: '1',
+    Coin.ADA: '2',
+    Coin.ETH: '3',
+    Coin.PEPE: '4',
+    Coin.SOL: '5'
+} 

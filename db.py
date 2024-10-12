@@ -36,8 +36,7 @@ def get_all_earn_data():
         Coin.PEPE.value: get_earn_summary(Coin.PEPE.value),
         Coin.SOL.value: get_earn_summary(Coin.SOL.value)
     }
-
-    print(all_data)
+ 
     return all_data
 
 def get_earn_summary(coin):

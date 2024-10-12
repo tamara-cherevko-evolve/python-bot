@@ -12,6 +12,8 @@ import requests
 from dotenv import load_dotenv
 import os
 
+from earn import select_coin_for_suggestion
+
 load_dotenv() 
  
 from db import get_all_earn_data, get_earn_data
@@ -55,6 +57,17 @@ def get_balance():
         minimum_balance = get_minimum_balance(price)
         is_ballance_enough = check_balance_for_orders(client, price) 
         return jsonify({"balance": balance, "minimum_balance": minimum_balance, "is_ballance_enough": is_ballance_enough}), 200 
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
+    
+@app.route('/get-earn-balance-with-suggestion', methods=['GET'])
+def get_balance():   
+    try: 
+        balance = get_balance_usdt(client)   
+        minimum_balance = 5
+        is_ballance_enough = balance >= minimum_balance
+        suggested_coin = select_coin_for_suggestion()
+        return jsonify({"balance": balance, "minimum_balance": minimum_balance, "is_ballance_enough": is_ballance_enough, "suggested_coin": suggested_coin}), 200 
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
