@@ -42,8 +42,6 @@ def buy_coin(client, coin):
             insert_coin_purchase(coin, transact_time, qty, price, total, commission)
             
             return order
-        else:
-            raise Exception("Order creation failed")
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
