@@ -19,15 +19,22 @@ def select_coin_for_suggestion():
 #     if not is_balance_enough:
 #         return
 
-def check_balance_for_orders(client):
+def check_balance_for_earn_investment(client):
     balance = get_balance_usdt(client) 
+    is_balance_enough = balance >= minimum_earn_balance
+    message = ''
 
     if balance >= minimum_earn_balance:
-        print(f"Sufficient balance: {balance}")
-        return True
+        message = f"Sufficient balance: {balance}" 
     else:
-        print(f"Insufficient balance: {balance}, minimum balance: {minimum_earn_balance}")
-        return False
+        message = f"Insufficient balance: {balance}, minimum balance: {minimum_earn_balance}" 
+    
+    summary_data = {
+        "is_balance_enough": is_balance_enough,
+        "message": message, 
+    }
+    return summary_data
+
 # Example usage
 if __name__ == "__main__":
     suggested_coin = select_coin_for_suggestion()

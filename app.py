@@ -3,7 +3,7 @@ from time import sleep
 from binance.client import Client 
 from mysql.connector import Error
 from flask import Flask, jsonify, request 
-from flask_cors import CORS, cross_origin 
+from flask_cors import CORS 
 from waitress import serve
 from constants import coins_titles, Coin, minimum_earn_balance
 from create_order import get_price_btcusd
@@ -12,7 +12,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-from earn import select_coin_for_suggestion, check_balance_for_orders
+from earn import select_coin_for_suggestion, check_balance_for_earn_investment
 
 load_dotenv() 
  
@@ -73,9 +73,15 @@ def get_earn_balance():
 @app.route('/buy-coin', methods=['POST'])
 def buy_coin():   
     try: 
-        is_balance_enough = check_balance_for_orders(client)  
-        if not is_balance_enough:
-            return jsonify({"status": "error", "message": "Balance not enough"}), 500 
+        data = request.get_json()
+        coin = data.get('coin') 
+
+        if not coin:
+            return jsonify({"status": "error", "message": "Missing 'coin' in request"}), 400 
+        
+        balance_data = check_balance_for_earn_investment(client)  
+        if not balance_data['is_balance_enough']:
+            return jsonify({"status": "error", "message": balance_data["message"]}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
