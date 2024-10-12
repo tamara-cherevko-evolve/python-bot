@@ -84,7 +84,10 @@ def buy_coin_request():
             return jsonify({"status": "error", "message": balance_data["message"]}), 500
         else :
             order = buy_coin(client, coin) 
-            return {"status": "success", "order": order}, 200
+            if order and 'orderId' in order:
+                return {"status": "success", "order": order}, 200
+            else:
+                return {"status": "error", "message": order}, 500
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
