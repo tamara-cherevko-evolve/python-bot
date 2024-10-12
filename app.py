@@ -87,7 +87,7 @@ def buy_coin_request():
             if order and 'orderId' in order:
                 return {"status": "success", "order": order}, 200
             else:
-                return {"status": "error", "message": order}, 500
+                return {"status": "error", "message": order['message']}, 500
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
