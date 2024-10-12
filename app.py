@@ -12,7 +12,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-from earn import select_coin_for_suggestion, check_balance_for_earn_investment
+from earn import buy_coin, select_coin_for_suggestion, check_balance_for_earn_investment
 
 load_dotenv() 
  
@@ -71,7 +71,7 @@ def get_earn_balance():
         return jsonify({"error": str(e)}), 500 
     
 @app.route('/buy-coin', methods=['POST'])
-def buy_coin():   
+def buy_coin_request():   
     try: 
         data = request.get_json()
         coin = data.get('coin') 
