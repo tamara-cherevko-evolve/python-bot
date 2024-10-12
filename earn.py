@@ -25,9 +25,9 @@ def check_balance_for_earn_investment(client):
     message = ''
 
     if balance >= minimum_earn_balance:
-        message = f"Sufficient balance: {balance}" 
+        message = f"Sufficient balance: ${balance:.2f}" 
     else:
-        message = f"Insufficient balance: {balance}, minimum balance: {minimum_earn_balance}" 
+        message = f"Insufficient balance: ${balance:.2f}, minimum balance: ${minimum_earn_balance:.2f}" 
     
     summary_data = {
         "is_balance_enough": is_balance_enough,
