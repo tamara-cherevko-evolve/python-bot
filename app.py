@@ -61,7 +61,7 @@ def get_balance():
         return jsonify({"error": str(e)}), 500 
     
 @app.route('/get-earn-balance-with-suggestion', methods=['GET'])
-def get_balance():   
+def get_earn_balance():   
     try: 
         balance = get_balance_usdt(client)   
         minimum_balance = 5
