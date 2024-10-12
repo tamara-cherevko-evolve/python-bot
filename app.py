@@ -71,7 +71,7 @@ def get_earn_balance():
         return jsonify({"error": str(e)}), 500 
     
 @app.route('/buy_coin', methods=['POST'])
-def buy_coin():   
+def buy_coin(coin):   
     try: 
         is_balance_enough = check_balance_for_orders(client)  
         if not is_balance_enough:
