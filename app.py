@@ -70,8 +70,7 @@ def get_earn_balance():
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
     
-@app.route('/buy_coin', methods=['POST'])
-@cross_origin() 
+@app.route('/buy_coin', methods=['GET'])
 def buy_coin():   
     try: 
         is_balance_enough = check_balance_for_orders(client)  
