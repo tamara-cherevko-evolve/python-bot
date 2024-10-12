@@ -25,6 +25,22 @@ db_config = {
 
 client = Client(os.getenv("API_KEY"), os.getenv("API_SECRET")) 
 
+def insert_coin_purchase(coin, date, amount, price, total, commission): 
+    try:
+        connection = mysql.connector.connect(**db_config)
+        if connection and connection.is_connected(): 
+            cursor = connection.cursor()
+            table_name = f"{coin}_Earn" 
+            cursor.execute(f"INSERT INTO {table_name} (date, amount, price, total, commission) VALUES ('{date}', {amount}, {price}, {total}, {commission})")
+            connection.commit() 
+            connection.close()
+    except Error as e:
+        print(f"Error: {e}")
+    finally:
+        if connection and connection.is_connected():
+            connection.close()
+
+
 def get_earn_data(coin):
     return get_earn_data_from_db(f"{coin}_Earn")
 
@@ -112,5 +128,5 @@ def get_earn_data_from_db(table_name):
         if connection and connection.is_connected():
             connection.close()
 
-if __name__ == "__main__":
-    get_all_earn_data()
+if __name__ == "__main__": 
+    insert_coin_purchase('BTC', '2024-05-20', 0.00420, 178.3863, 0.7485, 0.0015)

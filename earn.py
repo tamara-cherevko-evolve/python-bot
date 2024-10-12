@@ -1,9 +1,9 @@
+from datetime import datetime
 from decimal import Decimal
 from ballance import get_balance_usdt
 from constants import minimum_earn_balance 
-from binance.client import Client 
-from create_order import get_price_btcusd
-from db import get_all_earn_data
+from binance.client import Client  
+from db import get_all_earn_data, insert_coin_purchase
 
 def select_coin_for_suggestion(): 
 
@@ -16,22 +16,36 @@ def select_coin_for_suggestion():
 
  
 def buy_coin(client, coin): 
-    symbol = f"{coin}USDT"
-    price_info = client.get_symbol_ticker(symbol=symbol)
-    price = float(price_info['price'])
-        
-    # Calculate the amount of the coin that can be bought
-    amount = round(Decimal(minimum_earn_balance) / Decimal(price), 2)
-    print(f"Amount of {coin} that can be bought for ${minimum_earn_balance}: {amount:.8f}")
-    return amount
-    # order = client.create_order(
-    #     symbol=symbol,
-    #     side=Client.SIDE_BUY,
-    #     type=Client.ORDER_TYPE_MARKET,
-    #     quantity=amount
-    # )
+    try:
+        symbol = f"{coin}USDT"
+        price_info = client.get_symbol_ticker(symbol=symbol)
+        price = float(price_info['price'])
+            
+        # Calculate the amount of the coin that can be bought
+        amount = round(Decimal(minimum_earn_balance) / Decimal(price), 5) 
+        order = client.create_order(
+            symbol=symbol,
+            side=Client.SIDE_BUY,
+            type=Client.ORDER_TYPE_MARKET,
+            quantity=amount
+        )
 
-    # return order
+        if order and 'orderId' in order:
+            # Add order data to the database
+            transact_time = datetime.fromtimestamp(order['transactTime'] / 1000).strftime('%Y-%m-%d')
+            qty = float(order['executedQty'])
+            price = float(order['price'])
+            # Extract the commission from the order
+            commission_rate = sum(float(fill['commission']) for fill in order['fills'])
+            commission = float(price) * commission_rate
+            total = float(order['cummulativeQuoteQty'])  
+            insert_coin_purchase(coin, transact_time, qty, price, total, commission)
+            
+            return {"status": "success", "message": f"Bought {amount} of {coin}"}
+        else:
+            return {"status": "error", "message": "Order creation failed"} 
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 def check_balance_for_earn_investment(client):
     balance = get_balance_usdt(client) 
