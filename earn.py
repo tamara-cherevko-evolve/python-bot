@@ -8,7 +8,7 @@ def select_coin_for_suggestion():
     # Find the coin with the lowest earnings total
     lowest_earning_coin = min(all_data.items(), key=lambda x: Decimal(x[1]['diff_in_percent']))
  
-    return lowest_earning_coin[1]
+    return lowest_earning_coin[0]
 
 # Example usage
 if __name__ == "__main__":
