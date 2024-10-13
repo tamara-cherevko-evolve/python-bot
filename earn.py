@@ -30,7 +30,7 @@ def buy_coin(client, coin):
             symbol=symbol,
             side=Client.SIDE_BUY,
             type=Client.ORDER_TYPE_MARKET,
-            quantity=amount
+            quantity=0.00223
         )
 
         print(order)
