@@ -20,7 +20,7 @@ def buy_coin(client, coin):
         symbol = f"{coin}USDT"
         price_info = client.get_symbol_ticker(symbol=symbol)
         price = float(price_info['price'])
-            
+        print(symbol)
         # Calculate the amount of the coin that can be bought
         amount = round(Decimal(minimum_earn_balance) / Decimal(price), coins_round_to[coin]) 
         # Print the order details
