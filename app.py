@@ -74,10 +74,15 @@ def get_earn_balance():
 def buy_coin_request():   
     try: 
         data = request.get_json()
-        coin = data.get('coin') 
+        coin_str = data.get('coin') 
 
-        if not coin:
+        if not coin_str:
             return jsonify({"status": "error", "message": "Missing 'coin' in request"}), 400 
+        
+        try:
+            coin = Coin[coin_str]
+        except KeyError:
+            return jsonify({"status": "error", "message": f"Invalid coin: {coin_str}"}), 400
         
         balance_data = check_balance_for_earn_investment(client)  
         print(balance_data)
