@@ -1,7 +1,7 @@
 from enum import Enum
 
 #Earn
-minimum_earn_balance = 5.5
+minimum_earn_balance = 5.1
 
 #Trading
 current_symbol = 'BTCUSDT' 
@@ -40,4 +40,12 @@ coins_priority = {
     Coin.ETH: '3',
     Coin.PEPE: '4',
     Coin.SOL: '5'
+} 
+
+coins_round_to = {
+    Coin.BTC: '5',
+    Coin.ADA: '1',
+    Coin.ETH: '4',
+    Coin.PEPE: '8',
+    Coin.SOL: '3'
 } 
