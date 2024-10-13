@@ -129,4 +129,5 @@ def get_earn_data_from_db(table_name):
             connection.close()
 
 if __name__ == "__main__": 
-    insert_coin_purchase('BTC', '2024-05-20', 0.00420, 178.3863, 0.7485, 0.0015)
+    info = client.get_symbol_info('ETHUSDT')
+    print(info)

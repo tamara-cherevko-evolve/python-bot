@@ -23,7 +23,9 @@ def buy_coin(client, coin):
             
         # Calculate the amount of the coin that can be bought
         amount = round(Decimal(minimum_earn_balance) / Decimal(price), 5) 
-        print(f"Amount of {coin} that can be bought for ${minimum_earn_balance}: {amount:.8f}")
+        # Print the order details
+        print(f"symbol={symbol}, side={Client.SIDE_BUY}, type={Client.ORDER_TYPE_MARKET}, quantity={amount}")
+        
         order = client.create_order(
             symbol=symbol,
             side=Client.SIDE_BUY,
@@ -31,6 +33,7 @@ def buy_coin(client, coin):
             quantity=amount
         )
 
+        print(order)
         if order and 'orderId' in order:
             # Add order data to the database
             transact_time = datetime.fromtimestamp(order['transactTime'] / 1000).strftime('%Y-%m-%d')
