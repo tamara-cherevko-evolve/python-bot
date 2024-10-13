@@ -22,7 +22,8 @@ def buy_coin(client, coin):
         price = float(price_info['price'])
         print(symbol)
         # Calculate the amount of the coin that can be bought
-        amount = round(Decimal(minimum_earn_balance) / Decimal(price), coins_round_to[coin]) 
+        round_to = coins_round_to.get(coin, 5)  # Default to 5 decimal places if coin not found 
+        amount = round(Decimal(minimum_earn_balance) / Decimal(price), round_to) 
         # Print the order details
         print(f"symbol={symbol}, side={Client.SIDE_BUY}, type={Client.ORDER_TYPE_MARKET}, quantity={amount}")
         
