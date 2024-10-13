@@ -17,8 +17,8 @@ def select_coin_for_suggestion():
  
 def buy_coin(client, coin): 
     try:
-        coinValue = coin.value
-        symbol = f"{coinValue}USDT"
+        coin_value = coin.value
+        symbol = f"{coin_value}USDT"
         price_info = client.get_symbol_ticker(symbol=symbol)
         price = float(price_info['price'])
         print(symbol)
@@ -47,7 +47,7 @@ def buy_coin(client, coin):
             commission_rate = sum(float(fill['commission']) for fill in order['fills'])
             commission = round(float(price) * commission_rate, 8)
             total = float(order['cummulativeQuoteQty'])  
-            insert_coin_purchase(coinValue, transact_time, qty, price, total, commission)
+            insert_coin_purchase(coin_value, transact_time, qty, price, total, commission)
             
             return order
     except Exception as e:
