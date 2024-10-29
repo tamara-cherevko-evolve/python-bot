@@ -64,7 +64,8 @@ def get_earn_summary(coin):
         "diff_in_dollars": 0,
         "diff_in_percent": 0,
         "current_price": 0,
-        "avg_price": 0
+        "avg_price": 0,
+        "last_investment": None
     }
 
     # Calculate total amount
@@ -76,7 +77,9 @@ def get_earn_summary(coin):
     if total_amount > 0:
         avg_price = total_spent / total_amount
         diff_in_dollars = total_current_value - total_spent
-        diff_in_percent = (diff_in_dollars / total_spent) * 100 if total_spent > 0 else 0
+        diff_in_percent = (diff_in_dollars / total_spent) * 100 if total_spent > 0 else 0 
+        last_investment_date = max(item["date"] for item in items if item["date"])
+        
         summary_data["coin"] = f"{coin}"
         summary_data["amount"] = f"{total_amount:.8f}"
         summary_data["spent"] = f"{total_spent:.8f}"
@@ -84,6 +87,7 @@ def get_earn_summary(coin):
         summary_data["diff_in_percent"] = f"{diff_in_percent:.2f}"
         summary_data["current_price"] = f"{current_price:.8f}"
         summary_data["avg_price"] = f"{avg_price:.8f}"
+        summary_data["last_investment"] = last_investment_date
     
     return summary_data 
 
