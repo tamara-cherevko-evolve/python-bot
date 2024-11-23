@@ -33,7 +33,7 @@ def get_coins():
         "coin": coin.value,
         "title": coins_titles[coin],
         "priority": coins_priority[coin],
-        "roundTo": coins_round_to[coin],
+        "round_to": coins_round_to[coin],
         "icon": coins_icons[coin]
     } for coin in Coin] 
     return jsonify(coins_list), 200
