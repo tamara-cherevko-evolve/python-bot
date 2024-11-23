@@ -49,3 +49,11 @@ coins_round_to = {
     Coin.PEPE: 8,
     Coin.SOL: 3
 } 
+
+coins_icons = {
+    Coin.BTC: 'https://bin.bnbstatic.com/static/assets/logos/BTC.png',
+    Coin.ADA: 'https://bin.bnbstatic.com/static/assets/logos/ADA.png',
+    Coin.ETH: 'https://bin.bnbstatic.com/static/assets/logos/ETH.png',
+    Coin.PEPE: 'https://bin.bnbstatic.com/static/assets/logos/PEPE.png',
+    Coin.SOL: 'https://bin.bnbstatic.com/static/assets/logos/SOL.png'
+}

@@ -5,7 +5,7 @@ from mysql.connector import Error
 from flask import Flask, jsonify, request 
 from flask_cors import CORS 
 from waitress import serve
-from constants import coins_titles, Coin, minimum_earn_balance
+from constants import coins_titles, Coin, minimum_earn_balance, coins_priority, coins_round_to,coins_icons
 from create_order import get_price_btcusd
 from ballance import get_balance_usdt, get_minimum_balance, check_balance_for_orders
 import requests
@@ -29,7 +29,13 @@ def index():
 
 @app.route('/get-coins', methods=['GET'])
 def get_coins():
-    coins_list = [{"coin": coin.value, "title": coins_titles[coin]} for coin in Coin] 
+    coins_list = [{
+        "coin": coin.value,
+        "title": coins_titles[coin],
+        "priority": coins_priority[coin],
+        "roundTo": coins_round_to[coin],
+        "icon": coins_icons[coin]
+    } for coin in Coin] 
     return jsonify(coins_list), 200
 
 @app.route('/get-earn-data/<coin>', methods=['GET'])
