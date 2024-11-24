@@ -1,7 +1,9 @@
+from datetime import date, datetime
 from enum import Enum
 
 #Earn
 minimum_earn_balance = 5.1
+earn_start_date = datetime(2024, 11, 1)
 
 #Trading
 current_symbol = 'BTCUSDT' 

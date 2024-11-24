@@ -3,10 +3,10 @@ import mysql.connector
 from mysql.connector import Error
 from binance.client import Client 
  
-from constants import Coin
+from constants import Coin, earn_start_date
 from dotenv import load_dotenv
 import os
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from decimal import Decimal
 
 from price import get_current_price
@@ -65,12 +65,15 @@ def get_earn_summary(coin):
         "diff_in_percent": 0,
         "current_price": 0,
         "avg_price": 0,
-        "last_investment": None
+        "last_investment": None,
+        "missed_dates": 0
     }
 
     # Calculate total amount
+
     total_amount = sum(Decimal(item["amount"] or 0) for item in items)
     total_spent = sum(Decimal(item["total"] or 0) for item in items)
+    total_spent_since_start_earn_date = sum(Decimal(item["total"] or 0) for item in items if item["date"] and datetime.strptime(item["date"], "%Y-%m-%d") >= earn_start_date)
     current_price = get_current_price(f"{coin}USDT") 
     total_current_value = current_price * total_amount
     
@@ -78,8 +81,9 @@ def get_earn_summary(coin):
         avg_price = total_spent / total_amount
         diff_in_dollars = total_current_value - total_spent
         diff_in_percent = (diff_in_dollars / total_spent) * 100 if total_spent > 0 else 0 
-        last_investment_date = max(item["date"] for item in items if item["date"])
-        
+        investment_dates = [item["date"] for item in items if item["date"]]
+        last_investment_date = max(investment_dates) 
+      
         summary_data["coin"] = f"{coin}"
         summary_data["amount"] = f"{total_amount:.8f}"
         summary_data["spent"] = f"{total_spent:.8f}"
@@ -87,7 +91,8 @@ def get_earn_summary(coin):
         summary_data["diff_in_percent"] = f"{diff_in_percent:.2f}"
         summary_data["current_price"] = f"{current_price:.8f}"
         summary_data["avg_price"] = f"{avg_price:.8f}"
-        summary_data["last_investment"] = last_investment_date
+        summary_data["last_investment"] = last_investment_date 
+        summary_data["spent_since_start_earn_date"] = total_spent_since_start_earn_date 
     
     return summary_data 
 

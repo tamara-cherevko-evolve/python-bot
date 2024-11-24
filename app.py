@@ -12,7 +12,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-from earn import buy_coin, select_coin_for_suggestion, check_balance_for_earn_investment
+from earn import buy_coin, select_coin_for_suggestion, check_balance_for_earn_investment, select_purchase_amount_for_suggestion
 
 load_dotenv() 
  
@@ -71,7 +71,7 @@ def get_earn_balance():
         balance = get_balance_usdt(client)  
         is_ballance_enough = balance >= minimum_earn_balance
         suggested_coin = select_coin_for_suggestion()
-        suggested_bid = 5
+        suggested_bid = select_purchase_amount_for_suggestion()
         
         return jsonify({
             "balance": balance,
