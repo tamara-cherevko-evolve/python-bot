@@ -48,7 +48,7 @@ coins_round_to = {
     Coin.BTC: 5,
     Coin.ADA: 1,
     Coin.ETH: 4,
-    Coin.PEPE: 8,
+    Coin.PEPE: 0,
     Coin.SOL: 3
 } 
 
