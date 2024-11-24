@@ -29,27 +29,27 @@ def buy_coin(client, coin, purchase_amount):
         # Print the order details
         print(f"symbol={symbol}, side={Client.SIDE_BUY}, type={Client.ORDER_TYPE_MARKET}, quantity={amount}")
         
-        # order = client.create_order(
-        #     symbol=symbol,
-        #     side=Client.SIDE_BUY,
-        #     type=Client.ORDER_TYPE_MARKET,
-        #     quantity=amount
-        # )
+        order = client.create_order(
+            symbol=symbol,
+            side=Client.SIDE_BUY,
+            type=Client.ORDER_TYPE_MARKET,
+            quantity=amount
+        )
 
-        # print(order)
-        # if order and 'orderId' in order:
-        #     # Add order data to the database
-        #     transact_time = datetime.fromtimestamp(order['transactTime'] / 1000).strftime('%Y-%m-%d')
-        #     fills = order['fills'][0]
-        #     qty = float(fills['qty'])
-        #     price = float(fills['price'])
-        #     # Extract the commission from the order
-        #     commission_rate = sum(float(fill['commission']) for fill in order['fills'])
-        #     commission = round(float(price) * commission_rate, 8)
-        #     total = float(order['cummulativeQuoteQty'])  
-        #     insert_coin_purchase(coin_value, transact_time, qty, price, total, commission)
+        print(order)
+        if order and 'orderId' in order:
+            # Add order data to the database
+            transact_time = datetime.fromtimestamp(order['transactTime'] / 1000).strftime('%Y-%m-%d')
+            fills = order['fills'][0]
+            qty = float(fills['qty'])
+            price = float(fills['price'])
+            # Extract the commission from the order
+            commission_rate = sum(float(fill['commission']) for fill in order['fills'])
+            commission = round(float(price) * commission_rate, 8)
+            total = float(order['cummulativeQuoteQty'])  
+            insert_coin_purchase(coin_value, transact_time, qty, price, total, commission)
             
-        #     return order
+            return order
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
