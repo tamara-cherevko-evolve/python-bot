@@ -88,9 +88,13 @@ def buy_coin_request():
     try: 
         data = request.get_json()
         coin_str = data.get('coin') 
+        purchase_amount = data.get('purchaseAmount')
 
         if not coin_str:
             return jsonify({"status": "error", "message": "Missing 'coin' in request"}), 400 
+
+        if not purchase_amount:
+            return jsonify({"status": "error", "message": "Missing 'purchaseAmount' in request"}), 400 
         
         try:
             coin = Coin[coin_str]
@@ -98,11 +102,10 @@ def buy_coin_request():
             return jsonify({"status": "error", "message": f"Invalid coin: {coin_str}"}), 400
         
         balance_data = check_balance_for_earn_investment(client)  
-        print(balance_data)
         if not balance_data['is_balance_enough']:
             return jsonify({"status": "error", "message": balance_data["message"]}), 500
         else :
-            order = buy_coin(client, coin) 
+            order = buy_coin(client, coin, purchase_amount) 
             if order and 'orderId' in order:
                 return {"status": "success", "order": order}, 200
             else:

@@ -15,7 +15,7 @@ def select_coin_for_suggestion():
 
 
  
-def buy_coin(client, coin): 
+def buy_coin(client, coin, purchase_amount): 
     try:
         coin_value = coin.value
         symbol = f"{coin_value}USDT"
@@ -25,31 +25,31 @@ def buy_coin(client, coin):
         # Calculate the amount of the coin that can be bought
         round_to = coins_round_to.get(coin, 5)  # Default to 5 decimal places if coin not found 
         print(f"round_to={round_to}")
-        amount = round(Decimal(minimum_earn_balance) / Decimal(price), round_to) 
+        amount = round(Decimal(purchase_amount) / Decimal(price), round_to) 
         # Print the order details
         print(f"symbol={symbol}, side={Client.SIDE_BUY}, type={Client.ORDER_TYPE_MARKET}, quantity={amount}")
         
-        order = client.create_order(
-            symbol=symbol,
-            side=Client.SIDE_BUY,
-            type=Client.ORDER_TYPE_MARKET,
-            quantity=amount
-        )
+        # order = client.create_order(
+        #     symbol=symbol,
+        #     side=Client.SIDE_BUY,
+        #     type=Client.ORDER_TYPE_MARKET,
+        #     quantity=amount
+        # )
 
-        print(order)
-        if order and 'orderId' in order:
-            # Add order data to the database
-            transact_time = datetime.fromtimestamp(order['transactTime'] / 1000).strftime('%Y-%m-%d')
-            fills = order['fills'][0]
-            qty = float(fills['qty'])
-            price = float(fills['price'])
-            # Extract the commission from the order
-            commission_rate = sum(float(fill['commission']) for fill in order['fills'])
-            commission = round(float(price) * commission_rate, 8)
-            total = float(order['cummulativeQuoteQty'])  
-            insert_coin_purchase(coin_value, transact_time, qty, price, total, commission)
+        # print(order)
+        # if order and 'orderId' in order:
+        #     # Add order data to the database
+        #     transact_time = datetime.fromtimestamp(order['transactTime'] / 1000).strftime('%Y-%m-%d')
+        #     fills = order['fills'][0]
+        #     qty = float(fills['qty'])
+        #     price = float(fills['price'])
+        #     # Extract the commission from the order
+        #     commission_rate = sum(float(fill['commission']) for fill in order['fills'])
+        #     commission = round(float(price) * commission_rate, 8)
+        #     total = float(order['cummulativeQuoteQty'])  
+        #     insert_coin_purchase(coin_value, transact_time, qty, price, total, commission)
             
-            return order
+        #     return order
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
