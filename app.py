@@ -33,8 +33,7 @@ def get_coins():
         "coin": coin.value,
         "title": coins_titles[coin],
         "priority": coins_priority[coin],
-        "round_to": coins_round_to[coin],
-        "icon": coins_icons[coin]
+        "round_to": coins_round_to[coin], 
     } for coin in Coin] 
     return jsonify(coins_list), 200
 
@@ -72,7 +71,15 @@ def get_earn_balance():
         balance = get_balance_usdt(client)  
         is_ballance_enough = balance >= minimum_earn_balance
         suggested_coin = select_coin_for_suggestion()
-        return jsonify({"balance": balance, "minimum_balance": minimum_earn_balance, "is_ballance_enough": is_ballance_enough, "suggested_coin": suggested_coin}), 200 
+        suggested_bid = 5
+        
+        return jsonify({
+            "balance": balance,
+            "minimum_balance": minimum_earn_balance,
+            "is_ballance_enough": is_ballance_enough,
+            "suggested_coin": suggested_coin,
+            "suggested_bid": suggested_bid
+        }), 200 
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
     
